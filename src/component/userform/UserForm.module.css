@@ -44,10 +44,3 @@
     outline: none;
   }
 
-  .form {
-    padding: 1rem;
-    max-width: 30rem;
-    margin: 2rem auto;
-    border-radius: 4px;
-    box-shadow: inset 0px 0px 2px 0px;
-  }
