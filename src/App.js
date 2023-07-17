@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import UserForm from './component/userform/UserForm';
 import UserList from './component/userlist/UserList';
+import ErrorModal from './component/ErrorModal/ErrorModal';
+import './index.css'
 
 
 function App() {
 
   const [userList, addUserToList] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   const addUser = (user) => {
       addUserToList( (prevState) => {
@@ -16,11 +19,25 @@ function App() {
 
       console.log(userList);
   };
+  let modalHeader = '';
+  let modalContent = '';
+
+  const showHideModal = (header, content) => {
+    if(showModal) {
+      setShowModal(false);
+    }
+      setShowModal(true);
+      modalHeader = header;
+      modalContent = content;
+  }
+
+
 
   return (
-    <div>
-      <UserForm addUser={addUser}/>
+    <div className={showModal && 'backdrop'}>
+      <UserForm addUser={addUser} showModal={showHideModal}/>
       <UserList userList={userList} />
+      {showModal && <ErrorModal />} 
     </div>
     
   );
