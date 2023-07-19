@@ -6,7 +6,7 @@ function Button(props) {
   };
 
   return (
-    <button type={props.type} className={styles.button}>
+    <button type={props.type} className={styles.button} onClick={props.onClk}>
        {props.name}
     </button>
   );

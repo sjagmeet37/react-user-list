@@ -14,8 +14,19 @@ function UserForm(props) {
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    props.addUser(userData);
-    props.showModal();
+    if(!userData.name) {
+      props.showModal('name issue', 'name cannot be empty');
+    } else if(!userData.age) {
+      props.showModal('incorrect age', 'please enter age');
+    } else if (userData.age < 0) {
+      props.showModal('incorrect age', 'age cannot be less than 0');
+    } else {
+      userData['id'] = Math.random().toString();
+
+      props.addUser(userData);
+      setUserData(defaultValues);
+    }
+
   };
 
   const formCHangeHandler = (field, value) => {
