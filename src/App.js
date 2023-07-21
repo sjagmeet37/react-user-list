@@ -38,10 +38,10 @@ function App() {
 
 
   return (
-    <div className={showModal && 'backdrop'}>
+    <div className={showModal ? 'backdrop' : undefined}>
       <UserForm addUser={addUser} showModal={showHideModal}/>
-      <UserList userList={userList} />
-      {showModal && <ErrorModal showHideModal={hideModal} modalHeader={modalHeader} modalContent={modalContent}/>} 
+      {userList.length > 0 ? <UserList userList={userList} /> : undefined}
+      {showModal ? <ErrorModal showHideModal={hideModal} modalHeader={modalHeader} modalContent={modalContent}/> : undefined} 
     </div>
     
   );
