@@ -7,6 +7,7 @@ function UserList(props) {
   });
 
   return (
+    <React.Fragment>
     <Card>
       <div className={style.users}>
         <ul>
@@ -20,6 +21,7 @@ function UserList(props) {
         </ul>
       </div>
     </Card>
+    </React.Fragment>
   );
 }
 
