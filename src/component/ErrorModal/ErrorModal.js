@@ -1,7 +1,13 @@
 import Button from "../Button/Button";
 import styles from "./ErrorModal.module.css";
+import React from "react";
+import { ReactDOM } from "react";
 
-function ErrorModal(props) {
+function Backdrop(props) {
+  return <div className={styles.backdrop}></div>;
+}
+
+function ModalOverlay(props) {
   return (
     <div className={`${styles.modal}`}>
       <div className={styles.header}>
@@ -9,13 +15,25 @@ function ErrorModal(props) {
       </div>
       <div className={styles.content}>{props.modalContent}</div>
       <div className={styles.actions}>
-        <Button 
-            type="Button"
-            name="Okay" 
-            onClk={props.showHideModal}
-            />
+        <Button type="Button" name="Okay" onClk={props.showHideModal} />
       </div>
     </div>
+  );
+}
+
+function ErrorModal(props) {
+  return (
+    <React.Fragment>
+      ReactDOM.createRoot(
+      <Backdrop />, document.getElementById('backdrop-root'))
+      ReactDOM.createRoot(
+      <ModalOverlay
+        showHideModal={props.showHideModal}
+        modalHeader={props.modalHeader}
+        modalContent={props.modalContent}
+      />
+      , document.getElementById('overlay-root'))
+    </React.Fragment>
   );
 }
 
