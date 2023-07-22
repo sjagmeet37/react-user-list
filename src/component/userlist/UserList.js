@@ -1,5 +1,6 @@
 import Card from "../card/Card";
 import style from "./UserList.module.css";
+import { Fragment } from "react";
 
 function UserList(props) {
   props.userList.map((user) => {
@@ -7,7 +8,7 @@ function UserList(props) {
   });
 
   return (
-    <React.Fragment>
+    <Fragment>
     <Card>
       <div className={style.users}>
         <ul>
@@ -21,7 +22,7 @@ function UserList(props) {
         </ul>
       </div>
     </Card>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

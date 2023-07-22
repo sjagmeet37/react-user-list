@@ -1,42 +1,46 @@
-import { useState } from "react";
+import { useRef} from "react";
 import Card from "./../card/Card.js";
 import styles from "./UserForm.module.css";
 import Button from "../Button/Button.js";
 
-const defaultValues = {
-  name: "",
-  age: "",
-};
 
 function UserForm(props) {
-  const [userData, setUserData] = useState(defaultValues);
+  
+  const userNameRef = useRef();
+  const userAgeRef = useRef();
+
+
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    if(!userData.name) {
+    if(!userNameRef.current.value) {
       props.showModal('name issue', 'name cannot be empty');
-    } else if(!userData.age) {
+    } else if(!userAgeRef.current.value) {
       props.showModal('incorrect age', 'please enter age');
-    } else if (userData.age < 0) {
+    } else if (userAgeRef.current.value < 0) {
       props.showModal('incorrect age', 'age cannot be less than 0');
     } else {
-      userData['id'] = Math.random().toString();
-
-      props.addUser(userData);
-      setUserData(defaultValues);
+      
+      props.addUser({
+        name : userNameRef.current.value,
+        age : userAgeRef.current.value,
+        id : Math.random().toString()
+      });
+      userAgeRef.current.value = '';
+      userNameRef.current.value = '';
     }
 
   };
 
-  const formCHangeHandler = (field, value) => {
-    setUserData((prevState) => {
-      return {
-        ...prevState,
-        [field]: value,
-      };
-    });
-  };
+  // const formCHangeHandler = (field, value) => {
+  //   setUserData((prevState) => {
+  //     return {
+  //       ...prevState,
+  //       [field]: value,
+  //     };
+  //   });
+  // };
 
   return (
     <Card>
@@ -44,8 +48,7 @@ function UserForm(props) {
         <div>
           <label>User Name</label>
           <input
-            value={userData.name}
-            onChange={(event) => formCHangeHandler("name", event.target.value)}
+            ref={userNameRef}
             type="text"
           ></input>
         </div>
@@ -53,9 +56,7 @@ function UserForm(props) {
         <div>
           <label>Age</label>
           <input
-            value={userData.age}
-            onChange={(event) => formCHangeHandler("age", event.target.value)}
-            type="number"
+            type="number" ref={userAgeRef}
           ></input>
         </div>
         <Button type="submit" name="Add User" buttonClickHandler="" />
